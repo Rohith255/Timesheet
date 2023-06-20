@@ -1,0 +1,77 @@
+*{
+    margin: 0%;
+    font-family: Calibri;
+}
+.register-page{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+.register-image-section{
+    width: 70%;
+    height: 100%;
+}
+.register-image-section img{
+    width: 100%;
+    height: 100%;
+}
+.register-details{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.register-box{
+    width: 80%;
+    height: 65%;
+}
+.register-header{
+    width: 100%;
+    height: 8%;
+    display: flex;
+    align-items: center;
+}
+.register-form{
+    width: 100%;
+    height: 90%;
+}
+.register-row{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.register-form form{
+    width: 100%;
+    height: 100%;
+}
+.register-row input{
+    width: 90%;
+    height: 50%;
+    outline: none;
+    background-color: whitesmoke;
+    border: none;
+    border-bottom: 1px solid rgb(0,123,255);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding-left: 8px;
+}
+.register-row button{
+    width: 40%;
+    height: 55%;
+    background-color: rgb(0,123,255);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+.register-form a{
+    color: rgb(0,123,255);
+}
+.first-letter{
+    color: rgb(0,123,255);
+    font-size: 30px;
+}
