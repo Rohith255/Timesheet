@@ -71,7 +71,7 @@ return [
 
          'developers' => [
              'driver' => 'eloquent',
-             'table' => App\Models\Developer::class,
+             'model' => App\Models\Developer::class,
          ],
     ],
 
@@ -97,6 +97,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'developers' => [
+            'provider' => 'developers',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

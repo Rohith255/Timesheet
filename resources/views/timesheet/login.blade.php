@@ -7,22 +7,54 @@
         <div class="login-details">
             <div class="login-box">
                 <div class="login-header">
-                    <h2><span class="first-letter">L</span>ogin</h2>
+                    <h1 style="color:rosybrown"><span class="first-letter" style="font-size: 2.6rem">L</span>ogin</h1>
                 </div>
                 <div class="login-form">
-                    <form>
-                        <div class="login-row">
-                            <input type="email" placeholder="enter your email">
+                    <form method="post" action="{{route('developer.store')}}">
+                        @csrf
+                        <div class="mb-2">
+                            <label for="email" class="col-form-label">Email</label>
+                            <div class="">
+                                <input id="email" type="email" class="form-control register-row-input" name="email" required placeholder="enter your email">
+                            </div>
+                            @error('email')
+                            <p style="color: red">{{$message}}</p>
+                            @enderror
                         </div>
-                        <div class="login-row">
-                            <input type="password" placeholder="enter your email">
+                        <div class="mb-2">
+                            <label for="password" class="col-form-label">Password</label>
+                            <div class="">
+                                <input id="password" type="password" class="form-control register-row-input" name="password" required placeholder="enter your password">
+                                <p style="color: red">@error('password'){{$message}}@enderror</p>
+                            </div>
                         </div>
-                        <div class="login-row">
-                            <button type="submit">Login</button>
+                        <div class="row-cols-3 mt-3">
+                            <button type="submit" class="btn">Login</button>
                         </div>
-                        <p>Create an account! <a href="#">Register</a> </p>
+                        <p class="mt-2">Create an account! <a href="{{route('developer.register')}}" style="color: #674737">Register</a> </p>
                     </form>
                 </div>
+                @if (session('error'))
+                    <div class="alert alert-danger" style="background-color: red; border-color: red;">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @if (session('Created'))
+                    <div class="alert alert-danger text-black" style="background-color:#d2b8a4; border-color: #d2b8a4;">
+                    {{ session('Created') }}
+                    </div>
+                @endif
+                @if (session('logout'))
+                    <div class="alert alert-danger" style="background-color: #5b3b28; border-color: #5b3b28">
+                        {{ session('logout') }}
+                    </div>
+                    <script>
+                        setTimeout(function() {
+                            $('.alert').fadeOut('fast');
+                        }, 4000);
+                    </script>
+                @endif
             </div>
         </div>
     </div>
