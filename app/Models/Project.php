@@ -9,13 +9,15 @@ class Project extends Model
 {
     use HasFactory;
 
-    public function developers()
+    public function timheetEntries()
     {
-        return $this->belongsTo(Developer::class);
+        return $this->belongsToMany(TimesheetEntry::class);
     }
 
-    public function modules()
+    public function module()
     {
         return $this->hasMany(Module::class);
     }
+
+    protected $fillable = ['project_name'];
 }

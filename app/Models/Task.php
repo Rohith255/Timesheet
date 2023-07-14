@@ -10,8 +10,15 @@ class Task extends Model
 {
     use HasFactory;
 
-    public function modules()
+    public function timesheetEntries()
+    {
+        return $this->hasMany(TimesheetEntry::class);
+    }
+
+    public function module()
     {
         return $this->belongsTo(Module::class);
     }
+
+    protected $fillable = ['task','module_id','time'];
 }

@@ -26,8 +26,8 @@ class Developer extends Authenticatable
         'password'
     ];
 
-    public function projects()
+    public function timesheetEntries()
     {
-        return $this->hasMany(Project::class);
+        return $this->hasMany(TimesheetEntry::class);
     }
 }

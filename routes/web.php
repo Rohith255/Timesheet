@@ -3,7 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeveloperController;
-
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TimesheetEntryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,14 +39,22 @@ Route::prefix('developer')->group(function (){
 
     Route::middleware(['auth:dev'])->group(function (){
         Route::get('timesheet',[DeveloperController::class,'timesheet'])->name('developer.timesheet');  //Timesheet entries
+        Route::post('store-entry',[DeveloperController::class,'storeEntry'])->name('developer.entry-store');
         Route::get('logout',[DeveloperController::class,'logout'])->name('developer.logout');  //Logout
         Route::get('profile',[DeveloperController::class,'profile'])->name('developer.profile');
         Route::put('update',[DeveloperController::class,'profileUpdate'])->name('developer.profile-update');
         Route::delete('delete',[DeveloperController::class,'profileDelete'])->name('developer.profile-delete');
+        Route::post('project',[DeveloperController::class,'chooseProject'])->name('developer.choose-project');
+        Route::post('module',[DeveloperController::class,'chooseModule'])->name('developer.choose-module');
+        Route::post('create/project',[ProjectController::class,'create'])->name('project.create');
+        Route::post('create/module',[ModuleController::class,'createModule'])->name('create.module');
+        Route::post('create/task',[TaskController::class,'createTask'])->name('create.task');
+        Route::put('update/enty/{id}',[TimesheetEntryController::class,'updateEntry'])->name('update-entry');
+        Route::post('update/entry/{id}',[TimesheetEntryController::class,'update'])->name('timesheet-entry.update');
+        Route::delete('entry/delete/{id}',[TimesheetEntryController::class,'deleteEntry'])->name('delete-entry');
     });
 
 });
-
 
 
 require __DIR__.'/auth.php';

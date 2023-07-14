@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\DeveloperRequest;
 use App\Models\Developer;
+use App\Models\Module;
+use App\Models\Project;
+use App\Models\Task;
+use App\Models\TimesheetEntry;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
@@ -36,8 +40,8 @@ class DeveloperController extends Controller
 
                 $request->session()->regenerate();
 
-                Cookie::queue('dev_email', $request->email, 60);
-                Cookie::queue('dev_password', $request->password, 60);
+                Cookie::queue('dev_email', $request->email, 60*24*15);
+                Cookie::queue('dev_password', $request->password, 60*24*15);
 
                 return redirect()->route('developer.timesheet')->with('welcome','Welcome back,');
             }
@@ -91,7 +95,14 @@ class DeveloperController extends Controller
 
     public function timesheet()
     {
-        return view('timesheet.home');
+        $project = Project::all();
+
+        $developer = Auth::guard('dev')->user();
+
+        $timesheet_entries = $developer->timesheetEntries()->with('task.module.project')->get();
+
+
+        return view('timesheet.home',['project'=>$project,'timesheet_entries'=>$timesheet_entries]);
     }
 
     public function profile()
@@ -150,5 +161,35 @@ class DeveloperController extends Controller
 
 
         return \redirect()->route('developer.register');
+    }
+
+    public function chooseProject(Request $request)
+    {
+        $module = Module::where('project_id',$request->input('id'))->get();
+
+        echo $module;
+    }
+
+    public function chooseModule(Request $request)
+    {
+        $task = Task::where('module_id',$request->input('module_id'))->get();
+
+        echo $task;
+    }
+
+    public function storeEntry(Request $request)
+    {
+        $timesheet_entry = TimesheetEntry::create([
+            'date'=>$request->input('date'),
+            'description'=>$request->input('description'),
+            'developer_id'=>Auth::guard('dev')->id(),
+            'project_id'=>$request->input('project_id'),
+            'module_id'=>$request->input('module_id'),
+            'task_id'=>$request->input('task_id'),
+            'worked_time' => $request->input('worked_time'),
+        ]);
+
+        return \redirect()->route('developer.timesheet');
+
     }
 }

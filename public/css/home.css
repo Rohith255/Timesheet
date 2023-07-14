@@ -7,10 +7,12 @@
     width: 100%;
     height: 100%;
     display: flex;
+    align-items: center;
 }
 .timesheet-row{
     width: 15%;
-    height: 100%;
+    height: 80%;
+    display: flex;
 }
 form a{
     height: 80%;
@@ -22,23 +24,29 @@ form a{
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid #d2b8a4;
+    border-radius: 10px;
 }
 .navbar-date a{
     margin-top: 10px;
 }
 .input-date{
     padding: 6px;
-    border: 1px solid #d2b8a4;
-    border-radius: 5px;
-    background-color: whitesmoke;
+    border: none;
+    background-color: #E9EAEB;
     outline: none;
+    border-radius: 10px;
     font-family: Arial, sans-serif;
     font-size: 16px;
     margin-left: 4px;
+    height: 100%;
 }
 .timesheet-row-text{
-    width: 20%;
-    height: 100%;
+    width: 18%;
+    height: 80%;
+    border-radius: 10px;
+    border: 1px solid #d2b8a4;
+    margin-left: 4px;
 }
 .navbar-text{
     width: 100%;
@@ -49,10 +57,10 @@ form a{
 }
 .navbar-text input{
     width: 85%;
-    height: 120%;
+    height: 100%;
     border-radius: 8px;
-    border: 1px solid #d2b8a4;
-    background-color: whitesmoke;
+    border: none;
+    background-color: #E9EAEB;
     outline: none;
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -60,23 +68,29 @@ form a{
 }
 .navbar-text input:focus{
     outline: none;
-    border: 1px solid #674737;
+    border: none;
 }
 .timesheet-row-module{
     width: 15%;
-    height: 100%;
+    height: 80%;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+    border: 1px solid #d2b8a4;
+    border-radius: 8px;
+    margin-left: 4px;
+}
+.timesheet-row-module svg{
+    color: #674737;
 }
 .timesheet-row-module select{
-    width: 90%;
-    height: 80%;
+    width: 80%;
+    height: 100%;
     outline: none;
-    border: 1px solid #d2b8a4;
+    border: none;
     border-radius: 5px;
     font-size: 1.1rem;
-    background-color: whitesmoke;
+    background-color: #E9EAEB;
 }
 .timesheet-row-button{
     width: 8%;
