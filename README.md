@@ -5,7 +5,18 @@ The Timesheet Project is a web application that allows users to track their time
 ## Features
 
 - User authentication: Users can create an account, log in, and manage their timesheet entries.
+## Login
+<img src="./public/images/login.png">
+
+ ## Register
+<img src="./public/images/register.png">
+
+## Login
+<img src="./public/images/profile.png">
 - Timesheet entry: Users can enter the date, description, project, module, task, and time for each timesheet entry.
+
+## Home
+<img src="./public/images/home.jpg">
 - Project management: Users can create, update, and delete projects.
 - Module and task management: Users can create, update, and delete modules and tasks within each project.
 
