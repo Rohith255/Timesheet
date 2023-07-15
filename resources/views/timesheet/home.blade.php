@@ -78,7 +78,7 @@
     </div>
     <div class="timesheet-entries d-flex flex-column align-items-center">
         <h2 class="text-center" style="color: #674737">Timesheet Entries</h2>
-        <table class="table  table-hover table-borderless table-striped table-responsive" style="width: 95%">
+        <table class="table  table-hover table-borderless table-striped table-responsive" style="width: 94%">
             <tr>
                 <th style="border-top-left-radius: 10px;">DATE</th>
                 <th>DESCRIPTION</th>
@@ -90,9 +90,10 @@
             </tr>
             @foreach($timesheet_entries as $entry)
             <tr style="box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;">
-                    <td style="border-bottom-left-radius: 10px;">
-                        {{$entry->date}}
-                    </td>
+                @php
+                    $date = \Illuminate\Support\Carbon::parse($entry->date);
+                @endphp
+                    <td style="border-bottom-left-radius: 10px;">{{ strtoupper($date->format('d M Y'))}}</td>
                     <td>{{$entry->description}}</td>
                     <td>{{$entry->task->module->project->project_name}}</td>
                     <td>{{$entry->task->module->module_name}}</td>
@@ -248,13 +249,6 @@
                             $pro = \App\Models\Project::all();
                         @endphp
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">select project</label>
-                            <select class="form-control pro" id="tsk-pro" name="project_id">
-                                <option>Choose Project</option>
-                                @foreach($pro as $pro)
-                                    <option value="{{$pro->id}}">{{$pro->project_name}}</option>
-                                @endforeach
-                            </select>
                             <label for="recipient-name" class="col-form-label">select Module</label>
                             <select class="form-control module" id="module_task" name="module_id">
                                 <option>Choose Module</option>

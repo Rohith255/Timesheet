@@ -26,7 +26,7 @@ class TimesheetEntryController extends Controller
             'project_id'=>$request->input('project_id'),
             'module_id'=>$request->input('module_id'),
             'task_id'=>$request->input('task_id'),
-            'worked_id'=>$request->input('worked_time'),
+            'worked_time'=>$request->input('worked_time'),
         ]);
 
         return redirect()->route('developer.timesheet')->with('entry-updated','Timesheet entry updated');

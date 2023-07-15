@@ -206,7 +206,11 @@
                     module_id:module_id,
                 },
                 success:function (response){
-                    console.log(response);
+                    if (response){
+                        alert('Task Created successfully');
+
+                        $("#tsk").modal("hide");
+                    }
                 },
                 error:function (error){
                     console.log(error);

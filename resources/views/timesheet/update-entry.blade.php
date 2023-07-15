@@ -28,13 +28,13 @@
                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
                     </svg>
                 </button>
-                <select id="pro" name="project_id">
+                <select id="pro" name="project_id" class="pro">
                     @php
-                        $project = \App\Models\Project::all()
+                        $project = \App\Models\Project::all();
                     @endphp
                     <option>Choose project</option>
-                    @foreach($project as $project)
-                        <option value="{{$project->id}}">{{$project->project_name}}</option>
+                    @foreach($project as $proj)
+                        <option value="{{$proj->id}}">{{$proj->project_name}}</option>
                     @endforeach
                 </select>
             </div>
@@ -44,7 +44,7 @@
                         <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434L7.752.066ZM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567L4.25 7.504ZM7.5 9.933l-2.75 1.571v3.134l2.75-1.571V9.933Zm1 3.134 2.75 1.571v-3.134L8.5 9.933v3.134Zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567-2.742 1.567Zm2.242-2.433V3.504L8.5 5.076V8.21l2.75-1.572ZM7.5 8.21V5.076L4.75 3.504v3.134L7.5 8.21ZM5.258 2.643 8 4.21l2.742-1.567L8 1.076 5.258 2.643ZM15 9.933l-2.75 1.571v3.134L15 13.067V9.933ZM3.75 14.638v-3.134L1 9.933v3.134l2.75 1.571Z"/>
                     </svg>
                 </button>
-                <select id="module" name="module_id">
+                <select id="module" name="module_id" class="module">
                     <option>Choose module</option>
                 </select>
             </div>
@@ -56,7 +56,7 @@
                     </svg>
                 </button>
                 <select id="task" name="task_id">
-                    <option>Choose Task</option>
+                    <option value="{{$ent->task->id}}">{{$ent->task->task}}</option>
                 </select>
             </div>
             <div class="timesheet-row-module" style="width: 10%">
@@ -77,4 +77,104 @@
             </div>
         </form>
     </div>
+
+
+    {{--    Create project --}}
+
+    <div class="modal fade" id="project" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create Project</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="project-create">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Project:</label>
+                            <input type="text" class="form-control" placeholder="Create project" id="project_name" name="project_name" required>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #674737">Close</button>
+                    <button type="submit" class="btn text-black" style="background-color: #d2b8a4">Create</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mod" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create module</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="module_create">
+                        @csrf
+                        @php
+                            $pro = \App\Models\Project::all();
+                        @endphp
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">select project</label>
+                            <select class="form-control" name="project_id" id="project_choose">
+                                <option>Choose Project</option>
+                                @foreach($pro as $pro)
+                                    <option value="{{$pro->id}}">{{$pro->project_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-form-label">Module</label>
+                            <input type="text" placeholder="create module" class="form-control" name="module_name"id="module_name" required>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #674737">Close</button>
+                    <button type="submit" class="btn text-black" style="background-color: #d2b8a4">Create</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{--    Task  --}}
+
+    <div class="modal fade" id="tsk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create Task</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="create_task">
+                        @csrf
+                        @php
+
+                            $pro = \App\Models\Project::all();
+                        @endphp
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">select Module</label>
+                            <select class="form-control module" id="module_task" name="module_id">
+                                <option>Choose Module</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-form-label">Task</label>
+                            <input type="text" placeholder="create module" class="form-control task_name" name="task_name" required>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #674737">Close</button>
+                    <button type="submit" class="btn text-black" style="background-color: #d2b8a4">Create</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
