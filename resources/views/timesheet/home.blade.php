@@ -8,7 +8,12 @@
                     <span class="material-symbols-outlined" style="font-size: 2rem; color: #674737">account_circle</span>
                 </a>
                 <div class="navbar-date">
-                    <input type="date" value="{{now()->format('Y-m-d')}}" class="input-date" name="date">
+                    <input type="date" class="input-date" name="date">
+                    @error('date')
+                    <script>
+                        alert('{{$message}}');
+                    </script>
+                    @enderror
                 </div>
             </div>
             <div class="timesheet-row-text">
@@ -18,6 +23,11 @@
                         <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
                     </svg>
                     <input type="text" placeholder="please enter details" name="description">
+                    @error('description')
+                    <script>
+                        alert('{{$message}}');
+                    </script>
+                    @enderror
                 </div>
             </div>
             <div class="timesheet-row-module">
@@ -26,12 +36,17 @@
                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
                     </svg>
                 </button>
-                <select id="pro" name="project_id" class="pro">
+                <select id="pro" name="project_id" class="pro" required>
                     <option>Choose project</option>
                     @foreach($project as $project)
                         <option value="{{$project->id}}">{{$project->project_name}}</option>
                     @endforeach
                 </select>
+                @error('project_id')
+                <script>
+                    alert('{{$message}}');
+                </script>
+                @enderror
             </div>
             <div class="timesheet-row-module">
                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#mod">
@@ -39,9 +54,14 @@
                         <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434L7.752.066ZM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567L4.25 7.504ZM7.5 9.933l-2.75 1.571v3.134l2.75-1.571V9.933Zm1 3.134 2.75 1.571v-3.134L8.5 9.933v3.134Zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567-2.742 1.567Zm2.242-2.433V3.504L8.5 5.076V8.21l2.75-1.572ZM7.5 8.21V5.076L4.75 3.504v3.134L7.5 8.21ZM5.258 2.643 8 4.21l2.742-1.567L8 1.076 5.258 2.643ZM15 9.933l-2.75 1.571v3.134L15 13.067V9.933ZM3.75 14.638v-3.134L1 9.933v3.134l2.75 1.571Z"/>
                     </svg>
                 </button>
-                <select id="module" name="module_id" class="module">
+                <select id="module" name="module_id" class="module" required>
                     <option>Choose module</option>
                 </select>
+                @error('module_id')
+                <script>
+                    alert('{{$message}}');
+                </script>
+                @enderror
             </div>
             <div class="timesheet-row-module">
                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#tsk">
@@ -53,6 +73,11 @@
                 <select id="task" name="task_id">
                     <option>Choose Task</option>
                 </select>
+                @error('task_id')
+                <script>
+                    alert('{{$message}}');
+                </script>
+                @enderror
             </div>
             <div class="timesheet-row-module" style="width: 10%">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
@@ -60,7 +85,7 @@
                     <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z"/>
                     <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z"/>
                 </svg>
-                <select name="worked_time">
+                <select name="worked_time" required>
                     <option value="1:00">1:00</option>
                     <option value="2:00">2:00</option>
                     <option value="3:00">3:00</option>
@@ -162,6 +187,17 @@
     @if (session('entry-updated'))
         <div class="alert alert-danger" style="background-color: #5b3b28">
             {{ session('entry-updated')}}
+        </div>
+        <script>
+            setTimeout(function() {
+                $('.alert').fadeOut('fast');
+            }, 4000);
+        </script>
+    @endif
+
+    @if (session('entry-delete'))
+        <div class="alert alert-danger" style="background-color: #5b3b28">
+            {{ session('entry-delete')}}
         </div>
         <script>
             setTimeout(function() {
