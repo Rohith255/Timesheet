@@ -1,18 +1,16 @@
 @extends('timesheet.index')
 @section('content')
     <div class="navbar-timesheet">
-        <form method="post" action="{{route('developer.entry-store')}}">
+        <form method="post" action="{{route('entry-store')}}">
             @csrf
             <div class="timesheet-row">
                 <a href="{{route('developer.profile')}}" class="text-primary">
                     <span class="material-symbols-outlined" style="font-size: 2rem; color: #674737">account_circle</span>
                 </a>
                 <div class="navbar-date">
-                    <input type="date" class="input-date" name="date">
+                    <input type="date" class="input-date" name="date" value="{{now()->format('Y-m-d')}}" required>
                     @error('date')
-                    <script>
-                        alert('{{$message}}');
-                    </script>
+                    <script>errorMessage('{{$message}}');</script>
                     @enderror
                 </div>
             </div>
@@ -24,9 +22,7 @@
                     </svg>
                     <input type="text" placeholder="please enter details" name="description">
                     @error('description')
-                    <script>
-                        alert('{{$message}}');
-                    </script>
+                    <script>errorMessage('{{$message}}');</script>
                     @enderror
                 </div>
             </div>
@@ -39,14 +35,9 @@
                 <select id="pro" name="project_id" class="pro" required>
                     <option>Choose project</option>
                     @foreach($project as $project)
-                        <option value="{{$project->id}}">{{$project->project_name}}</option>
+                        <option value="{{$project->id}}">{{strtoupper($project->project_name)}}</option>
                     @endforeach
                 </select>
-                @error('project_id')
-                <script>
-                    alert('{{$message}}');
-                </script>
-                @enderror
             </div>
             <div class="timesheet-row-module">
                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#mod">
@@ -57,11 +48,6 @@
                 <select id="module" name="module_id" class="module" required>
                     <option>Choose module</option>
                 </select>
-                @error('module_id')
-                <script>
-                    alert('{{$message}}');
-                </script>
-                @enderror
             </div>
             <div class="timesheet-row-module">
                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#tsk">
@@ -70,14 +56,9 @@
                     <path d="M6.5 3a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3zm-4 0a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3zm8 0a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3z"/>
                 </svg>
                 </button>
-                <select id="task" name="task_id">
+                <select id="task" name="task_id" required>
                     <option>Choose Task</option>
                 </select>
-                @error('task_id')
-                <script>
-                    alert('{{$message}}');
-                </script>
-                @enderror
             </div>
             <div class="timesheet-row-module" style="width: 10%">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
@@ -103,7 +84,7 @@
     </div>
     <div class="timesheet-entries d-flex flex-column align-items-center">
         <h2 class="text-center" style="color: #674737">Timesheet Entries</h2>
-        <table class="table  table-hover table-borderless table-striped table-responsive" style="width: 94%">
+        <table class="table bg-white table-borderless table-hover table-responsive" style="width: 94%">
             <tr>
                 <th style="border-top-left-radius: 10px;">DATE</th>
                 <th>DESCRIPTION</th>
@@ -113,12 +94,28 @@
                 <th>TIME</th>
                 <th style="border-top-right-radius: 10px;">ACTION</th>
             </tr>
+
+            @php
+                $previous_day = null;
+            @endphp
             @foreach($timesheet_entries as $entry)
-            <tr style="box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;">
-                @php
-                    $date = \Illuminate\Support\Carbon::parse($entry->date);
-                @endphp
-                    <td style="border-bottom-left-radius: 10px;">{{ strtoupper($date->format('d M Y'))}}</td>
+
+                @if($previous_day === null)
+                    @php
+                        $previous_day = $entry->date
+                    @endphp
+                @endif
+
+                    @if($previous_day != $entry->date)
+                        @php
+                            $previous_day = $entry->date
+                        @endphp
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                    @endif
+                    <tr class="border-bottom">
+                    <td style="border-bottom-left-radius: 10px;">{{strtoupper(\Illuminate\Support\Carbon::parse($entry->date)->format('d M Y'))}}</td>
                     <td>{{$entry->description}}</td>
                     <td>{{$entry->task->module->project->project_name}}</td>
                     <td>{{$entry->task->module->module_name}}</td>
@@ -143,6 +140,17 @@
     @if (session('welcome'))
         <div class="alert alert-danger" style="background-color: #5b3b28">
             {{ session('welcome')}} {{Auth::guard('dev')->user()->name}}
+        </div>
+        <script>
+            setTimeout(function() {
+                $('.alert').fadeOut('fast');
+            }, 4000);
+        </script>
+    @endif
+
+    @if (session('entry-created'))
+        <div class="alert alert-danger" style="background-color: #5b3b28">
+            {{ session('entry-created')}}
         </div>
         <script>
             setTimeout(function() {
@@ -280,10 +288,6 @@
                 <div class="modal-body">
                     <form id="create_task">
                         @csrf
-                        @php
-
-                            $pro = \App\Models\Project::all();
-                        @endphp
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">select Module</label>
                             <select class="form-control module" id="module_task" name="module_id">
@@ -292,7 +296,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label">Task</label>
-                            <input type="text" placeholder="create module" class="form-control task_name" name="task_name" required>
+                            <input type="text" placeholder="create task" class="form-control task_name" name="task_name" required>
                         </div>
                 </div>
                 <div class="modal-footer">

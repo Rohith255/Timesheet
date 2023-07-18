@@ -22,12 +22,12 @@ class TimesheetEntryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date'=>['required','date'],
-            'description'=>['required','string'],
-            'developer_id'=>['required'],
-            'module_id'=>['required'],
-            'task_id'=>['required'],
-            'worked_time'=>['required']
+            'date'=>'required','date',
+            'description'=>'required','string',
+            'developer_id'=>'required',
+            'module_id'=>'required',
+            'task_id'=>'required',
+            'worked_time'=>'required'
         ];
     }
 }

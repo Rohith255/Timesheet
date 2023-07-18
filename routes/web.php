@@ -39,7 +39,7 @@ Route::prefix('developer')->group(function (){
 
     Route::middleware(['auth:dev'])->group(function (){
         Route::get('timesheet',[DeveloperController::class,'timesheet'])->name('developer.timesheet');  //Timesheet entries
-        Route::post('store-entry',[DeveloperController::class,'storeEntry'])->name('developer.entry-store');
+        Route::post('store-entry',[TimesheetEntryController::class,'storeEntry'])->name('entry-store');
         Route::get('logout',[DeveloperController::class,'logout'])->name('developer.logout');  //Logout
         Route::get('profile',[DeveloperController::class,'profile'])->name('developer.profile');
         Route::put('update',[DeveloperController::class,'profileUpdate'])->name('developer.profile-update');

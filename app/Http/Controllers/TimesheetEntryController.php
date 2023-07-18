@@ -10,10 +10,8 @@ use Illuminate\Support\Facades\Auth;
 class TimesheetEntryController extends Controller
 {
 
-    public function storeEntry(TimesheetEntryRequest $request)
+    public function storeEntry(Request $request)
     {
-
-        $request->validate();
 
         TimesheetEntry::create([
             'date'=>$request->input('date'),
@@ -25,7 +23,7 @@ class TimesheetEntryController extends Controller
             'worked_time' => $request->input('worked_time'),
         ]);
 
-        return \redirect()->route('developer.timesheet');
+        return \redirect()->route('developer.timesheet')->with('entry-created','Entry created successfully!');
 
     }
     public function updateEntry(Request $request,$id)
