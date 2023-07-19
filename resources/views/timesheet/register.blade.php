@@ -58,6 +58,8 @@
                         </div>
                         <p>Already have an account? <a href="{{route('developer.login')}}">Login</a> </p>
                     </form>
+                    <a href="{{route('provider.github-to-redirect','github')}}" class="btn btn-secondary text-white">Sign with Github</a>
+                    <a class="btn btn-primary text-white" href="{{route('provider.github-to-redirect','google')}}">Sign with Google</a>
                 </div>
             </div>
         </div>

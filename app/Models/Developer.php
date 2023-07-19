@@ -20,6 +20,10 @@ class Developer extends Authenticatable
         'location',
         'mobile',
         'password',
+        'provider',
+        'provider_id',
+        'provider_token',
+        'gender',
     ];
 
     protected $hidden = [

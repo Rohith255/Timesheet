@@ -8,7 +8,6 @@ use App\Models\Developer;
 use App\Models\Module;
 use App\Models\Project;
 use App\Models\Task;
-use App\Models\TimesheetEntry;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;

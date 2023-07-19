@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('developers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
-            $table->unsignedBigInteger('mobile');
-            $table->string('password');
+            $table->string('email')->unique();
+            $table->unsignedBigInteger('mobile')->nullable();
+            $table->string('password')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
+            $table->string('provider_token')->nullable();
             $table->timestamps();
         });
     }

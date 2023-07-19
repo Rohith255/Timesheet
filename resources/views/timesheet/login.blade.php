@@ -33,6 +33,8 @@
                         </div>
                         <p class="mt-2">Create an account! <a href="{{route('developer.register')}}" style="color: #674737">Register</a> </p>
                     </form>
+                    <a href="{{route('provider.github-to-redirect','github')}}" class="btn btn-secondary text-white">Sign with Github</a>
+                    <a class="btn btn-primary text-white" href="{{route('provider.github-to-redirect','google')}}">Sign with Google</a>
                 </div>
                 @if (session('error'))
                     <div class="alert alert-danger" style="background-color: red; border-color: red;">

@@ -7,6 +7,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TimesheetEntryController;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\Auth\ProviderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+#OAuth implementation using socialite
+Route::get('/auth/{provider}/redirect',[ProviderController::class,'redirectToProvider'])->name('provider.github-to-redirect');
+Route::get('auth/{provider}/callback',[ProviderController::class,'handleToProvider'])->name('provider.github-to-handle');
 
 
 Route::prefix('developer')->group(function (){
