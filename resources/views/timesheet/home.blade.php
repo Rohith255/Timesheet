@@ -84,7 +84,7 @@
     </div>
     <div class="timesheet-entries d-flex flex-column align-items-center">
         <h2 class="text-center" style="color: #674737">Timesheet Entries</h2>
-        <table class="table bg-white table-borderless table-hover table-responsive" style="width: 94%">
+        <table class="table bg-white table-borderless table-responsive" style="width: 94%">
             <tr>
                 <th style="border-top-left-radius: 10px;">DATE</th>
                 <th>DESCRIPTION</th>
@@ -111,7 +111,7 @@
                             $previous_day = $entry->date
                         @endphp
                         <tr>
-                            <td>&nbsp;</td>
+                            <td style="padding-top: 40px"></td>
                         </tr>
                     @endif
                     <tr class="border-bottom">
