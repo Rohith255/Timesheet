@@ -72,6 +72,10 @@ Route::prefix('admin')->group(function (){
     Route::middleware(['auth:admin'])->group(function (){
        Route::get('dashboard',[AdminController::class,'home'])->name('admin.home');
        Route::post('logout',[AdminController::class,'logout'])->name('admin.logout');
+       Route::get('developers',[AdminController::class,'developers'])->name('admin.developers');
+       Route::post('manage/{id}',[AdminController::class,'manageDev'])->name('admin.manage-dev');
+       Route::put('update/dev/{id}',[AdminController::class,'updateDev'])->name('admin.update-dev');
+       Route::delete('delete/dev/{id}',[AdminController::class,'deleteDev'])->name('admin.delete-dev');
     });
 });
 

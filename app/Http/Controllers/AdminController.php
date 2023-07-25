@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Developer;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -50,5 +51,43 @@ class AdminController extends Controller
     public function home()
     {
         return view('admin.dashboard');
+    }
+
+    public function developers()
+    {
+        $developers = Developer::all();
+
+        return view('admin.developers',['developers'=>$developers]);
+    }
+
+    public function manageDev($id)
+    {
+        $dev = Developer::findOrFail($id);
+
+        return view('admin.manage_developers',compact('dev'));
+    }
+
+    public function updateDev(Request $request,$id)
+    {
+       $dev = Developer::findOrFail($id);
+
+       $dev->update([
+           'name'=>$request->dev_name,
+           'email'=>$request->dev_email,
+           'mobile'=>$request->dev_mobile,
+           'location' => $request->dev_location,
+           'role'=>$request->dev_role,
+       ]);
+
+       return redirect()->route('admin.developers')->with('updated','Developer Updated successfully');
+    }
+
+    public function deleteDev($id)
+    {
+        $dev = Developer::findOrFail($id);
+
+        $dev->delete();
+
+        return redirect()->route('admin.developers')->with('deleted','Developer deleted Successfully');
     }
 }
