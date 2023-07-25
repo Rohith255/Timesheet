@@ -9,6 +9,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TimesheetEntryController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,6 +61,18 @@ Route::prefix('developer')->group(function (){
         Route::delete('entry/delete/{id}',[TimesheetEntryController::class,'deleteEntry'])->name('delete-entry');
     });
 
+
+});
+
+Route::prefix('admin')->group(function (){
+
+    Route::get('login',[AdminController::class,'login'])->name('admin.login');
+    Route::post('store',[AdminController::class,'store'])->name('admin.store');
+
+    Route::middleware(['auth:admin'])->group(function (){
+       Route::get('dashboard',[AdminController::class,'home'])->name('admin.home');
+       Route::post('logout',[AdminController::class,'logout'])->name('admin.logout');
+    });
 });
 
 

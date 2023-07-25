@@ -179,6 +179,8 @@
                 success:function (response){
                     console.log(response);
 
+                    $("#module_create")[0].reset();
+
                     $("#mod").modal('hide');
 
                     alert('Module Created successfully');
@@ -209,6 +211,8 @@
                     if (response){
                         alert('Task Created successfully');
 
+                        $("#create_task")[0].reset();
+
                         $("#tsk").modal("hide");
                     }
                 },
@@ -217,7 +221,6 @@
                 }
             });
         });
-
     });
 </script>
 </body>
