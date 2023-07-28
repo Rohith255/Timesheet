@@ -37,7 +37,7 @@ The Timesheet Project is a web application that allows users to track their time
 4. Run database migrations: `php artisan migrate`.
 5. Generate application key: `php artisan key:generate`.
 6. Start the development server: `php artisan serve`.
-7. Access the application in your browser: `http://localhost:8000`.
+7. Access the application in your browser: `http://127.0.0.1:8000`.
 
 ## Usage
 
