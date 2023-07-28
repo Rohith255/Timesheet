@@ -65,7 +65,7 @@
 </style>
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-        <a class="navbar-brand" href="#">Admin</a>
+        <a class="navbar-brand" href="{{route('admin.home')}}">Admin</a>
         <!-- Hamburger Menu Icon for Mobile View -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,10 +77,10 @@
                     <a class="nav-link" href="{{route('admin.developers')}}">Developers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Options</a>
+                    <a class="nav-link" href="{{route('admin.options')}}">Project's</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Project's</a>
+                    <a class="nav-link" href="#">Timesheet entrie's</a>
                 </li>
             </ul>
             <!-- Search, Profile, and Logout Options -->

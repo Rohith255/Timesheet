@@ -58,7 +58,7 @@ class DeveloperController extends Controller
     {
         if (Auth::guard('dev')->check()){
 
-            Auth::logout();
+            Auth::guard('dev')->logout();
 
             Cookie::queue(Cookie::forget('dev_email'));
             Cookie::queue(Cookie::forget('dev_password'));

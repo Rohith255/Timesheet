@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Developer;
+use App\Models\Module;
+use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -43,9 +46,19 @@ class AdminController extends Controller
 
     public function logout()
     {
-        \Auth::guard('admin')->logout();
 
-        return view('admin.login');
+        if (\Auth::guard('admin')->check()){
+
+            \Cookie::queue(\Cookie::forget('admin_email'));
+            \Cookie::queue(\Cookie::forget('admin_password'));
+
+            \Auth::guard('admin')->logout();
+
+            return view('admin.login');
+        }
+        else{
+            return redirect()->back();
+        }
     }
 
     public function home()
@@ -69,17 +82,17 @@ class AdminController extends Controller
 
     public function updateDev(Request $request,$id)
     {
-       $dev = Developer::findOrFail($id);
+        $dev = Developer::findOrFail($id);
 
-       $dev->update([
-           'name'=>$request->dev_name,
-           'email'=>$request->dev_email,
-           'mobile'=>$request->dev_mobile,
-           'location' => $request->dev_location,
-           'role'=>$request->dev_role,
-       ]);
+        $dev->update([
+            'name'=>$request->dev_name,
+            'email'=>$request->dev_email,
+            'mobile'=>$request->dev_mobile,
+            'location' => $request->dev_location,
+            'role'=>$request->dev_role,
+        ]);
 
-       return redirect()->route('admin.developers')->with('updated','Developer Updated successfully');
+        return redirect()->route('admin.developers')->with('updated','Developer Updated successfully');
     }
 
     public function deleteDev($id)
@@ -89,5 +102,50 @@ class AdminController extends Controller
         $dev->delete();
 
         return redirect()->route('admin.developers')->with('deleted','Developer deleted Successfully');
+    }
+
+    public function options()
+    {
+
+        $project = Project::all();
+
+        return view('admin.options',['project'=>$project]);
+    }
+
+    public function createProject(Request $request)
+    {
+
+        Project::create([
+            'project_name' => $request->input('project_name'),
+            'developer_id' => 3,
+        ]);
+
+        $project = Project::all();
+
+        echo $project;
+    }
+
+    public function createModule(Request $request)
+    {
+        Module::create([
+            'module_name' => $request->name,
+            'project_id' => $request->id,
+        ]);
+
+        echo 'Created';
+    }
+
+    public function chooseProject(Request $request)
+    {
+        $module = Module::where('project_id',$request->id)->get();
+
+        echo $module;
+    }
+
+    public function chooseModule(Request $request)
+    {
+        $task = Task::where('module_id',$request->id)->get();
+
+        echo $task;
     }
 }
