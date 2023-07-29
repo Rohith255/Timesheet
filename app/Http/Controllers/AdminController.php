@@ -6,6 +6,7 @@ use App\Models\Developer;
 use App\Models\Module;
 use App\Models\Project;
 use App\Models\Task;
+use App\Models\TimesheetEntry;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -147,5 +148,12 @@ class AdminController extends Controller
         $task = Task::where('module_id',$request->id)->get();
 
         echo $task;
+    }
+
+    public function timesheetEntries()
+    {
+        $entries = TimesheetEntry::with('task.module.project')->orderBy('date','DESC')->get();
+
+        return view('admin.timesheet_entry',['entries'=>$entries]);
     }
 }

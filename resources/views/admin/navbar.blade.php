@@ -80,7 +80,7 @@
                     <a class="nav-link" href="{{route('admin.options')}}">Project's</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Timesheet entrie's</a>
+                    <a class="nav-link" href="{{route('admin.timesheet-entries')}}">Timesheet entrie's</a>
                 </li>
             </ul>
             <!-- Search, Profile, and Logout Options -->

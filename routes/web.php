@@ -81,6 +81,7 @@ Route::prefix('admin')->group(function (){
        Route::post('create/module',[AdminController::class,'createModule'])->name('admin.create-module');
        Route::post('choose/project',[AdminController::class,'chooseProject'])->name('admin.choose-project');
        Route::post('choose/module',[AdminController::class,'chooseModule'])->name('admin.choose-module');
+       Route::get('timesheet/entries',[AdminController::class,'timesheetEntries'])->name('admin.timesheet-entries');
     });
 });
 
