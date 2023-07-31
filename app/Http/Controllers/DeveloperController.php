@@ -22,6 +22,9 @@ class DeveloperController extends Controller
         $dev_email = Cookie::get('dev_email');
         $dev_password = Cookie::get('dev_password');
 
+        $oAuth_email = Cookie::get('oAuth_email');
+        $oAuth_password = Cookie::get('oAuth_password');
+
         if (!empty($dev_email) && !empty($dev_password) && Auth::guard('dev')->attempt(['email'=>$dev_email,'password'=>$dev_password])){
             return redirect()->route('developer.timesheet');
         }
@@ -55,7 +58,7 @@ class DeveloperController extends Controller
     {
         if (Auth::guard('dev')->check()){
 
-            Auth::logout();
+            Auth::guard('dev')->logout();
 
             Cookie::queue(Cookie::forget('dev_email'));
             Cookie::queue(Cookie::forget('dev_password'));
@@ -98,7 +101,7 @@ class DeveloperController extends Controller
 
         $developer = Auth::guard('dev')->user();
 
-        $timesheet_entries = $developer->timesheetEntries()->with('task.module.project')->get();
+        $timesheet_entries = $developer->timesheetEntries()->orderBy('date','asc')->with('task.module.project')->get();
 
 
         return view('timesheet.home',['project'=>$project,'timesheet_entries'=>$timesheet_entries]);

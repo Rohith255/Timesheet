@@ -111,13 +111,15 @@ form a{
 }
 .timesheet-entries{
     width: 100%;
-    height: 100vh;
+    height: auto;
     padding-top: 20px;
     background-color: whitesmoke;
 }
 .timesheet-entries table{
     width: 90%;
     height: auto;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 10px;
 }
 .timesheet-entries th{
     background-color: #EFE9E1;

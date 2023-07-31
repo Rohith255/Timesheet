@@ -20,7 +20,7 @@
                         <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
                         <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
                     </svg>
-                    <input type="text" placeholder="please enter details" name="description">
+                    <input type="text" placeholder="please enter details" name="description" required>
                     @error('description')
                     <script>errorMessage('{{$message}}');</script>
                     @enderror
@@ -114,7 +114,7 @@
                             <td style="padding-top: 40px"></td>
                         </tr>
                     @endif
-                    <tr class="border-bottom">
+                    <tr class="border-top border-bottom">
                     <td style="border-bottom-left-radius: 10px;">{{strtoupper(\Illuminate\Support\Carbon::parse($entry->date)->format('d M Y'))}}</td>
                     <td>{{$entry->description}}</td>
                     <td>{{$entry->task->module->project->project_name}}</td>
@@ -276,7 +276,7 @@
         </div>
     </div>
 
-{{--    Task  --}}
+{{-- Create Task  --}}
 
     <div class="modal fade" id="tsk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
