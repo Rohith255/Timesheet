@@ -9,6 +9,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TimesheetEntryController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,6 +61,29 @@ Route::prefix('developer')->group(function (){
         Route::delete('entry/delete/{id}',[TimesheetEntryController::class,'deleteEntry'])->name('delete-entry');
     });
 
+
+});
+
+Route::prefix('admin')->group(function (){
+
+    Route::get('login',[AdminController::class,'login'])->name('admin.login');
+    Route::post('store',[AdminController::class,'store'])->name('admin.store');
+
+    Route::middleware(['admin'])->group(function (){
+       Route::get('dashboard',[AdminController::class,'home'])->name('admin.home');
+       Route::post('logout',[AdminController::class,'logout'])->name('admin.logout');
+       Route::get('developers',[AdminController::class,'developers'])->name('admin.developers');
+       Route::post('manage/{id}',[AdminController::class,'manageDev'])->name('admin.manage-dev');
+       Route::put('update/dev/{id}',[AdminController::class,'updateDev'])->name('admin.update-dev');
+       Route::delete('delete/dev/{id}',[AdminController::class,'deleteDev'])->name('admin.delete-dev');
+       Route::get('options',[AdminController::class,'options'])->name('admin.options');
+       Route::post('create/project',[AdminController::class,'createProject'])->name('admin.create-project');
+       Route::post('create/module',[AdminController::class,'createModule'])->name('admin.create-module');
+       Route::post('choose/project',[AdminController::class,'chooseProject'])->name('admin.choose-project');
+       Route::post('choose/module',[AdminController::class,'chooseModule'])->name('admin.choose-module');
+       Route::get('timesheet/entries',[AdminController::class,'timesheetEntries'])->name('admin.timesheet-entries');
+       Route::get('timesheet/developer/entries/{id}',[AdminController::class,'developerEntries'])->name('admin.developer-entries');
+    });
 });
 
 
