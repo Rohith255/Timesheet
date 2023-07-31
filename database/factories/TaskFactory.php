@@ -17,7 +17,9 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'task' =>$this->faker->streetName(),
+            'module_id' => 22,
+            'time' => $this->faker->date(format: 'Y-m-d'),
         ];
     }
 }

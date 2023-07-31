@@ -16,16 +16,22 @@ class Developer extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role',
+        'location',
         'mobile',
         'password',
+        'provider',
+        'provider_id',
+        'provider_token',
+        'gender',
     ];
 
     protected $hidden = [
         'password'
     ];
 
-    public function projects()
+    public function timesheetEntries()
     {
-        return $this->hasMany(Project::class);
+        return $this->hasMany(TimesheetEntry::class);
     }
 }

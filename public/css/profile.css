@@ -4,6 +4,49 @@
     margin: 0 auto;
     background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 24px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.alert {
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 8px;
+    animation-duration: 0.5s;
+    animation-name: slidein;
+}
+
+.alert-success {
+    color: black;
+    background-color: #d2b8a4;
+}
+
+
+
+.alert-danger {
+    color: whitesmoke;
+    background-color: rgb(0,123,255);
+    border-color: white;
+}
+
+@keyframes slidein {
+    from {
+        bottom: -50px;
+    }
+    to {
+        bottom: 0;
+    }
+}
+
+input[type=text]:focus, input[type=email]:focus, input[type=number]:focus, input[type=password]:focus, input[type=submit]:focus{
+    box-shadow: none;
+    border-color:#674737;
+}
+
+.rad{
+    background-color: #EFE9E1;
+    border-radius: 20px;
 }
