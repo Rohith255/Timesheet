@@ -1,6 +1,6 @@
 @extends('admin.index')
 @section('content')
-<div class="d-flex justify-content-center pt-5" style="height: 100vh;background-color: #EFE9E1">
+<div class="d-flex justify-content-center pt-5" style="height: 100vh;background-color: #EFE9E1;padding-top: 15vh;">
                     <div class="col-lg-4 mx-auto bg-white" style="border-radius: 14px;height: 65%;">
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                             <h4 style="color: #674737">Hello! Admin</h4>

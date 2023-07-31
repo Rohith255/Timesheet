@@ -63,7 +63,7 @@
         }
     }
 </style>
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light position-fixed w-100">
     <div class="container">
         <a class="navbar-brand" href="{{route('admin.home')}}">Admin</a>
         <!-- Hamburger Menu Icon for Mobile View -->

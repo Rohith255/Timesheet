@@ -82,6 +82,7 @@ Route::prefix('admin')->group(function (){
        Route::post('choose/project',[AdminController::class,'chooseProject'])->name('admin.choose-project');
        Route::post('choose/module',[AdminController::class,'chooseModule'])->name('admin.choose-module');
        Route::get('timesheet/entries',[AdminController::class,'timesheetEntries'])->name('admin.timesheet-entries');
+       Route::get('timesheet/developer/entries/{id}',[AdminController::class,'developerEntries'])->name('admin.developer-entries');
     });
 });
 

@@ -156,4 +156,13 @@ class AdminController extends Controller
 
         return view('admin.timesheet_entry',['entries'=>$entries]);
     }
+
+    public function developerEntries($id)
+    {
+        $entries = Developer::find($id);
+
+       $ent = $entries->timesheetEntries()->orderBy('date','desc')->with('task.module.project')->get();
+
+        return view('admin.developer_entry',['entries'=>$ent],['dev'=>$entries]);
+    }
 }
